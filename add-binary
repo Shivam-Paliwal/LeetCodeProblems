@@ -1,0 +1,23 @@
+https://leetcode.com/problems/add-binary/
+class Solution {
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+
+        int addOne = 0;
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        while(i >= 0 || j >= 0 || addOne == 1){
+            
+            if(i >= 0)
+                addOne += a.charAt(i--) - '0';
+            if(j >= 0)
+                addOne += b.charAt(j--) - '0';
+
+            sb.append(addOne % 2);  // Append the result bit (0 or 1)
+
+            addOne /= 2;    // Calculate the carry for the next iteration
+        }
+        return sb.reverse().toString();
+    }
+}
