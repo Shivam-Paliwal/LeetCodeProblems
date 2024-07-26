@@ -1,0 +1,53 @@
+https://leetcode.com/problems/sort-the-jumbled-numbers/description/?envType=daily-question&envId=2024-07-24
+
+class Solution {
+    public int[] sortJumbled(int[] mapping, int[] nums) {
+        int n = nums.length;
+        List<makePair> al = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            int mappedNum = getMappedNum(nums[i], mapping);
+            al.add(new makePair(mappedNum, i));
+        }
+
+        Collections.sort(al, (a, b) -> Integer.compare(a.mappedNum, b.mappedNum));
+        int[] result = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            int originalNumIdx = al.get(i).originalIdx;
+            result[i] = nums[originalNumIdx];
+        }
+
+        return result;
+    }
+
+    private int getMappedNum(int num, int[] mapping) {
+        if (num < 10) {
+            return mapping[num];
+        }
+
+        int mappedNum = 0;
+        int placeValue = 1;
+
+        while (num > 0) {
+            int lastDigit = num % 10;
+            int mappedDigit = mapping[lastDigit];
+            mappedNum += placeValue * mappedDigit;
+
+            placeValue *= 10;
+            num /= 10;
+        }
+
+        return mappedNum;
+    }
+
+    private static class makePair {
+        int mappedNum;
+        int originalIdx;
+
+        makePair(int mappedNum, int originalIdx) {
+            this.mappedNum = mappedNum;
+            this.originalIdx = originalIdx;
+        }
+    }
+}
