@@ -1,0 +1,25 @@
+https://leetcode.com/problems/bitwise-xor-of-all-pairings/solutions/5538757/best-beginner-approach-in-java/
+
+class Solution {
+    public int xorAllNums(int[] nums1, int[] nums2) {
+        
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int r=0;
+
+        if(n1 % 2 == 0 && n2 % 2 == 0){
+            return 0;
+        }
+
+        for(int i = 0; i < n1; i++){
+
+            for(int j = 0; j < n2; j++){
+
+                // it directly updates result by XORing the 
+                // current pair (nums1[i], nums2[j]).
+                r ^= nums1[i] ^ nums2[j];
+            }
+        }
+        return r;
+    }
+}
