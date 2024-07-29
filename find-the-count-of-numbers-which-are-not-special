@@ -1,0 +1,29 @@
+https://leetcode.com/problems/find-the-count-of-numbers-which-are-not-special/
+
+class Solution {
+    public int nonSpecialCount(int l, int r) {
+        boolean[] isPrime = new boolean[(int) (Math.sqrt(r) + 1)];
+        Arrays.fill(isPrime, true);
+        isPrime[0] = false;
+        isPrime[1] = false;
+
+        for (int i = 2; i * i <= isPrime.length; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j < isPrime.length; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        int special = 0;
+        for (int i = (int) Math.sqrt(l) - 1; i * i <= r; i++) {
+            if (i * i < l) {
+                continue;
+            }
+            if (isPrime[i]) {
+                special++;
+            }
+        }
+        
+        return r - l + 1 - special;
+    }
+}
