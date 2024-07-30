@@ -1,0 +1,22 @@
+https://leetcode.com/problems/minimum-deletions-to-make-string-balanced/description/
+
+class Solution {
+    public int minimumDeletions(String s) {
+        int n = s.length();
+        Stack<Character> cs = new Stack<>();
+        int count=0;
+
+        for(int i = 0; i < n; i++){
+            // Check if the current character and the top of the stack
+            // form an invalid pair 'b a'
+            if( !cs.isEmpty() && cs.peek() == 'b' && s.charAt(i) == 'a'){
+                cs.pop(); // Remove 'b' from the stack
+                count++;
+            }
+            else{
+                cs.push(s.charAt(i)); // Push the current character onto the stack
+            }
+        }
+        return count;
+    }
+}
